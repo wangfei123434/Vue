@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<mycomputer>
+				<h1 slot="USB1">USB1</h1>
+				<h1 slot="USB2">USB2</h1>	
+				<h1 slot="USB3">USB3</h1>
+			</mycomputer>
+		</div>
+		<template id="myT">
+			<div>
+				<slot name="USB1"></slot>
+				<slot name="USB2"></slot>
+				<slot name="USB3"></slot>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{},
+				components:{
+					"mycomputer":{
+						template:"#myT"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

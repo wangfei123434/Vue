@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<h1 v-bind:title="msg">你把鼠标放上来试试看会有提示语出现</h1>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					msg:"你很成功，加油！"
+				}
+			})
+		</script>
+	</body>
+</html>

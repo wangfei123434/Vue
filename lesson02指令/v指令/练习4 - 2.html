@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			.ul{
+				background-color: #65b449;
+				list-style: none;
+				width: 400px;
+				display: flex;
+				height: 40px;
+				line-height: 40px;
+				margin: 50px auto;
+				color: white;
+				font-weight: bold;
+			}
+			.spanBg{
+				background-color: #65b449;
+				padding: 5px;
+				color: white;
+				font-weight: bold;
+			}
+			.li{
+				width: 100px;
+				text-align: center;
+			}
+			.activeBg{
+				background-color: #e45885;
+			}
+			.textBox{
+				width: 400px;
+				margin: 50px auto;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="(item,index) in navS" v-bind:class="{activeBg:item.active}" v-on:click="fn(item,index)">
+					{{item.name}}
+				</li>
+			</ul>
+			<div class="textBox">
+				你选择了<span >{{curName}}</span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					navS:[
+						{name:"HTML",active:true},
+						{name:"CSS",active:false},
+						{name:"JavaScript",active:false},
+						{name:"Vue.js",active:false},
+					],
+					curName:"HTML"
+				},
+				methods:{
+					fn:function(item,index){
+						for(let i = 0;i < this.navS.length;i ++){
+							this.navS[i].active = false
+						}
+						item.active = true
+						this.curName = item.name
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding:0;
+			}
+			#app{
+				width: 1200px;
+				border: 1px solid #ccc;
+				margin: 50px auto;
+				padding: 30px;
+			}
+			.textBox h3,.textBox p{
+				margin: 10px 0;
+			}
+			.textBox p img{
+				height: 50px;
+				width: 50px;
+				vertical-align: middle;
+			}
+			ul li{
+				border-bottom: 1px solid #ccc;
+				list-style: none;
+				padding: 15px 0;
+			}
+			.li_top img{
+				height: 40px;
+				width: 40px;
+				vertical-align: middle;
+			}
+			.li_top i{
+				color: #b1aca8;
+				vertical-align: sub; 
+			}
+			.li_top span{
+				float: right;
+			    color: red;
+			}
+			.li_buttom{
+				padding-left: 60px;
+			}
+			.li_buttom p{
+				font-weight: bold;
+			}
+			strong{
+				font-size: 20px;
+			}
+			.imgloadding{
+				width: 1200px;
+			}
+			.smallText{
+				color: #ccc;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<img class="imgloadding" src="img/timg.gif" v-show="isShow" >
+			<div class="textBox">
+				<h1>{{ title }}</h1>
+				<p class="smallText">
+					.分类 问答 .{{ number }}次访问 .发布于：{{ time | format }} .作者：{{ loginname }}
+				</p>
+				<div v-html="content"></div>
+			</div>
+			<ul>
+				<li v-for="(item,index) in liS">
+					<div class="li_top">
+						<img :src="item.author.avatar_url">
+						<strong>{{ item.author.loginname }}</strong>
+						<i>{{ index+1 }}楼</i>
+						<span>❤{{ item.ups.length }}</span>
+					</div>
+					<div class="li_buttom" v-html="item.content"></div>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					title:"",
+					content:"",
+					number:"",
+					loginname:"",
+					time:"",
+					isShow:true,
+					liS:[]
+				},
+				mounted(){
+					axios.get("https://cnodejs.org/api/v1/topic/5ae140407b0e8dc508cca7cc")
+				        .then(res => {
+							console.log(res.data.data)
+							this.title = res.data.data.title
+							this.number = res.data.data.visit_count
+							this.loginname = res.data.data.author.loginname
+							this.time = res.data.data.last_reply_at
+							this.content = res.data.data.content
+							this.liS = res.data.data.replies
+							this.isShow = false
+						})
+						.catch(err => {
+							console.log(err)
+						})
+				},
+				filters:{
+					format(time){
+						let str1 = time.substr(0,10)
+						let str2 = time.substr(11,8)
+						return str1 + " " + str2
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

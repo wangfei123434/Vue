@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#app{
+				width: 800px;
+				margin-left: 50px;
+				margin-top: 50px;
+				
+			}
+			.myTop fieldset{
+				padding: 20px;
+			}
+			.myTop fieldset p{
+				margin-top: 20px;
+			}
+			.myTop fieldset p span{
+				color: red;
+				margin-left: 10px;
+			}
+			input{
+				height: 30px;
+				width: 300px;
+			}
+			button{
+				background-color: #34abc5;
+				color: white;
+				border-radius: 5px;
+				border: none;
+				height: 35px;
+				width: 120px;
+				cursor:pointer
+			}
+			.myDate{
+				border: 2px solid #34abc5;
+				margin-top: 20px;
+			}
+			.myDate .myTitle{
+				display: flex;
+				background-color: #3eadc5;
+				color: white;
+			}
+			li{
+				list-style: none;
+				flex: 1;
+				text-align: center;
+				height: 35px;
+				line-height: 35px;
+			}
+			.myLists ul{
+				display: flex;
+			}
+			.myLists ul li:last-child span{
+				display: inline-block;
+				height: 30px;
+				width: 55px;
+				background: #3baec8;
+				color: white;
+				line-height: 30px;
+				border-radius: 5px;
+				cursor:pointer
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app"  >
+			<div  class="myTop">
+				<fieldset>
+					<legend>学生信息录入系统</legend>
+					<p>姓名：<input type="text" v-model="userName" @blur="userNameBlur"/><span v-show="nameZz" >3-16位(字母，数字，下划线)</span></p>
+					<p>年龄：<input type="text" v-model="age" @blur="ageBlur"/><span v-show="ageZz">输入格式不正确</span></p>
+					<p>性别：<select v-model="sex" >
+						        <option value="男">男</option>
+						        <option value="女">女</option>
+					        </select>
+					</p>
+					<p>手机：<input type="text" placeholder="请输入手机号码" v-model="phoneNumber" @blur="phoneNumberBlur"/>
+					        <span v-show="phoneZz" >输入格式不正确</span></p>
+					<p>
+						<button @click="creatNewUser">创建新用户</button>
+					</p>
+					<p>
+						请输入与名字有关的关键字搜索：<input type="text" v-model="searchValue" @input="search()"/>
+					</p>
+				</fieldset>
+			</div>
+			<div class="myDate">
+				<ul class="myTitle">
+					<li>姓名</li>
+					<li>性别</li>
+					<li>年龄</li>
+					<li>手机</li>
+					<li>删除</li>
+				</ul>
+				<div class="myLists">
+					<ul v-for="(item,index) in listS" >
+						<li >{{ item.userName }}</li>
+						<li >{{ item.sex }}</li>
+						<li >{{ item.age }}</li>
+						<li >{{ item.phoneNumber }}</li>
+						<li ><span @click="deleteLi(index)">删除</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					userName:"",
+					sex:"男",
+					age:"",
+					phoneNumber:"",
+					listS:[
+						{
+							userName:"张三",
+							sex:"男",
+							age:"18",
+							phoneNumber:"13500000000",
+						}
+					],
+					nameZz:false,
+					ageZz:false,
+					phoneZz:false,
+					searchValue:""
+				},
+				methods:{
+					//姓名输入框失去焦点
+					userNameBlur(){
+						console.log("姓名")
+						let regName = /^([\u4e00-\u9fa5]{2,4})|([A-Za-z0-9_]{4,16})|([a-zA-Z0-9_\u4e00-\u9fa5]{3,16})$/
+						if(!regName.test(this.userName)){
+							this.nameZz = true
+						}else{
+							this.nameZz = false
+						}
+					},
+					//年龄输入框失去焦点
+					ageBlur(){
+						console.log("年龄")
+						let regAge =  /^(?:[1-9][0-9]?|1[01][0-9]|100)$/
+						if(!regAge.test(this.age)){
+							this.ageZz = true
+						}else{
+							this.ageZz = false
+						}
+					},
+					//电话号码失去焦点
+					phoneNumberBlur(){
+						console.log("电话")
+						let regPhone = /^1[0-9]{10}$/
+						if(!regPhone.test(this.phoneNumber)){
+							this.phoneZz = true
+						}else{
+							this.phoneZz = false
+						}
+					},
+					//点击创建新用户
+					creatNewUser(){
+						if(this.userName.length!=0 && this.age!=0 && this.phoneNumber!=0){
+							let myJson = {userName:this.userName,sex:this.sex,age:this.age,phoneNumber:this.phoneNumber}
+							this.listS.push(myJson)
+							this.userName = this.age = this.phoneNumber = ""
+						}
+					},
+					//删除
+					deleteLi(index){
+						console.log(this.listS[index])
+						this.listS.splice(index,1)
+					},
+					//搜索关键字
+					search(){
+						let newArr = this.listS.filter(item => {
+							if(item.userName.includes(this.searchValue)){
+								return item
+							}
+						})
+						this.listS = newArr
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

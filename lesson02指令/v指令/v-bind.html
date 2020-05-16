@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#box div{
+				margin-top: 10px;
+			}
+			img{
+				height: 200px;
+				width: 200px;
+			}
+			.divBG{
+				background: #FFC0CB;
+			}
+			.divFONT{
+				font-size: 50px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<!-- 第一种方式：动态绑定属性值 -->
+			<img v-bind:src="imgSrc" />
+			<!-- 简写方式 -->
+			<img :src="imgSrc">
+			<!-- 第二种方式：根据变量判断动态绑定属性，v-bind:class="{类名：表达式}" -->
+			<div v-bind:class="{divBG:hasMydiv}">div1</div>
+			<!-- 第三种方式1：动态绑定多个样式 -->
+			<div v-bind:class="{divBG:hasMydiv,divFONT:hasFont}">div2</div>
+			<!-- 第三种方式2 -->
+			<div v-bind:class="classJson">div3</div>
+			<!-- 第四种方式1 -->
+			<div v-bind:class="[styleA,styleB]">div4</div>
+			<!-- 第四种方式2   -->
+			<div v-bind:class="[1>1?styleA:'',styleB]">div5</div>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					imgSrc:"images/kobe.jpg",
+					hasMydiv:true,
+					hasFont:true,
+					classJson:{
+						"divBG":true,
+						"divFONT":true
+					},
+					styleA:"divBG",
+					styleB:"divFONT"
+				}
+			})
+		</script>
+	</body>
+</html>

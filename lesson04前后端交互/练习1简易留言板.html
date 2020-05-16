@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 600px;
+				margin: 30px auto;
+			}
+			li{
+				list-style: none;
+				border: 1px solid #eee;
+				padding: 10px;
+				font-weight: bold;
+			}
+			p{
+				font-weight: 100;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<img src="img/timg.gif" v-show="isShow" >
+			<ul>
+				<li v-for="(item,index) in liArr">
+					{{ item.commentTxt }}
+					<p>
+						{{ item.createAt | fmtDate}}
+					</p>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					liArr:[],
+					isShow:true
+				},
+				//挂载之后
+				mounted:function(){
+					// axios.get("http://api.artgoer.cn:8084/artgoer/api/v1/user/324380/v3/topic/topicHomeByLabel?pageIndex=1&token=b544cd63-6d42-46fe-a96c-3cf96bae3113&topicId=62187")
+				    this.$http.get("http://api.artgoer.cn:8084/artgoer/api/v1/user/324380/v3/topic/topicHomeByLabel?pageIndex=1&token=b544cd63-6d42-46fe-a96c-3cf96bae3113&topicId=62187")
+					.then(res => {
+						this.isShow = false
+						console.log(res.data.data.commentList)
+						this.liArr = res.data.data.commentList
+					})
+					.catch(err => {
+						console.log(err)
+					})
+				},
+				//过滤日期：
+				filters:{
+					fmtDate:function(val){
+						return val.substr(0,10)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

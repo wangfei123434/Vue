@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			#box{
+				width: 200px;
+				margin: 100px auto;
+				color: white;
+			}
+			#box h2{
+				width: 100%;
+				background-color: #ae1917;
+				padding: 10px;
+				text-indent: 0.5em;
+			}
+			#box ul{
+				width: 100%;
+				background-color: #c81622;
+				padding: 10px;
+			}
+			#box ul li{
+				display: flex;
+				margin-top: 10px;
+			}
+			#box ul li:first-child{
+				margin-top: 0;
+			}
+			#box ul li .left span{
+				margin-left: 8px;
+			}
+			#box ul li .right{
+				flex: 1;
+				text-align: right;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<h2>全部商品分类</h2>
+			<ul>
+				<li v-for="(itemLi,index) in liArr">
+					<div class="left">
+						<span v-for="(itemSpan,index) in itemLi.spanArr">{{itemSpan}}</span>
+					</div>
+					<div class="right">
+						<img v-bind:src="imgSrc" >
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el: "#box",
+				data: {
+					imgSrc:"images/bg.png",
+					liArr: [{
+							spanArr: ["家用电器"]
+						},
+						{
+							spanArr: ["手机", "数码", "相机"]
+						},
+						{
+							spanArr: ["电脑", "办公"]
+						},
+						{
+							spanArr: ["家居", "家居", "家装"]
+						},
+						{
+							spanArr: ["男装", "女装", "珠宝"]
+						},
+						{
+							spanArr: ["鞋靴", "箱包", "钟表"]
+						}
+					]
+				}
+			})
+		</script>
+	</body>
+</html>

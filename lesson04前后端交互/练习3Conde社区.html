@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				width: 1000px;
+			}
+			li{
+				width: 100%;
+				list-style: none;
+				border-bottom: 1px solid #eee;
+				line-height: 55px;
+			}
+			li .number{
+				font-size: 15px;
+				margin: 0 15px;
+			}
+			li .time{
+				font-size: 15px;
+				float: right;
+			}
+			li img{
+				height: 50px;
+				width: 50px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(item,index) in liArr">
+					<img :src="item.author.avatar_url" >
+					<span class="number">{{ item.reply_count }}/{{ item.visit_count}}</span> 
+					<strong>{{ item.title }}</strong>
+					<span class="time">{{ item.last_reply_at | getDate }}</span>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					liArr:[]
+				},
+				mounted:function(){
+					axios.get("https://cnodejs.org/api/v1/topics")
+		            .then(res => {
+						console.log(res.data)
+						this.liArr = res.data.data
+					})	
+				    .catch(err => {
+						console.log(err)
+					})
+				},
+				filters:{
+					getDate:function(val){
+						let str1 = val.substr(0,10)
+						let str2 = val.substr(11,8)
+						return str1 + " " + str2
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

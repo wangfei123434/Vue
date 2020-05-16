@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<!-- 
+		vue实例生命周期：从创建到销毁的整个过程
+		作用：可以利用不同时期的钩子函数去完成不同的操作
+		分类：  create（创建）：  beforeCreate     created
+		        mount（挂载）:   beforeMount      mounted
+				update（更新）： beforeUpdate     updated
+				destroy（销毁）：beforeDestroy    destroyed
+		 -->
+		<div id="app">
+			<input type="text" v-model="msg" />
+			<p>{{ msg }}</p>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					msg:"hello"
+				},
+				//创建前：
+				beforeCreate:function(){
+					console.group("-----------------beforeCreate(创建前的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					//结果        el:undefined,data:undefined,msg:undefined
+					//所有全部为undefined，说明所有东西都还没有创建
+				},
+				//创建完成：
+				created:function(){
+					console.group("-----------------created(创建完成的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					//结果        el:undefined,data:[object Object],msg:hello
+					//el没有，但是data和msg都已经创建好了   可以异步请求
+				},
+				//挂载之前：
+				beforeMount:function(){
+					console.group("-----------------beforeMount(挂载之前的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					//结果        el:[object HTMLDivElement],data:[object Object],msg:hello
+					console.log("挂载之前的el",this.$el)   //msg还是msg，并没有解析成hello
+					//虽然三个都有值，但是el并没有真正创建完成，其中对msg都是占位符形式存在
+				},
+				//挂载之后：
+				mounted:function(){
+					console.group("-----------------mounted(挂载之后的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					//结果        el:[object HTMLDivElement],data:[object Object],msg:hello
+					console.log("挂载之后的el",this.$el) 
+					//此时el里面所有的东西都已经真正的创建完成，数据也替换完成
+					//此处可以做发起异步请求     接收页面间传递的参数    子传值给父组件
+				},
+				//更新之前：
+				beforeUpdate:function(){
+					console.group("-----------------beforeUpdate(更新之前的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					console.log("更新之前的el",this.$el) 
+				},
+				//更新之后：
+				updated:function(){
+					console.group("-----------------updated(更新之后的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					console.log("更新之后的el",this.$el) 
+				},
+				//销毁之前
+				beforeDestroy:function(){
+					console.group("-----------------beforeDestroy(销毁之前的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					console.log("销毁之前的el",this.$el) 
+				},
+				//销毁完成：
+				destroyed:function(){
+					console.group("-----------------destroyed(销毁完成的输出结果)------------------")
+					console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`)
+					console.log("销毁完成的el",this.$el) 
+				},
+				// app.$destroy()  控制台做销毁处理就会相应的触发beforeDestroy    destroyed
+				// 销毁之后不再会有双向绑定的效果
+			})
+		</script>
+	</body>
+</html>

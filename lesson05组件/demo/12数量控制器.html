@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#app{
+				width: 500px;
+				height: 300px;
+				border: 2px solid #00c77a;
+			}
+			h1,.mydiv{
+				margin-top: 60px;
+				text-align: center;
+			}
+			h1{
+				color: #00c77a;
+			}
+			button{
+				width: 100px;
+				height: 50px;
+				background: #2988f1;
+				border: none;
+				color: white;
+				font-size: 25px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<mynumber></mynumber>
+		</div>
+		<!-- 父（数字） -->
+		<template id="myNub">
+			<div>
+				<h1>{{ number }}</h1>
+				<mybutton  @changenumber="getNewNumber"></mybutton>
+			</div>
+		</template>
+		<!-- 子（按钮） -->
+		<template id="myBtn">
+			<div class="mydiv">
+				<button @click="addFn">增加1</button>
+				<button @click="subtractFn">减小1</button>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{},
+				components:{
+					"mynumber":{
+						template:"#myNub",
+						data:function(){
+							return {
+								number:0,
+							}
+						},
+						methods:{
+							getNewNumber(val){
+								console.log(val)
+								this.number = val
+							}
+						},
+						components:{
+							"mybutton":{
+								template:"#myBtn",
+								data:function(){
+									return {
+										btnNumber:0
+									}
+								},
+								methods:{
+									addFn(){
+										this.btnNumber ++
+										this.$emit("changenumber",this.btnNumber)
+										// console.log(this.btnNumber)
+									},
+									subtractFn(){
+										this.btnNumber --
+										this.$emit("changenumber",this.btnNumber)
+										// console.log(this.btnNumber)
+									}
+								}
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

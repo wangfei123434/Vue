@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js"></script>
+	<body>
+		<div id="box">
+			<h1>字符串倒序排列</h1>
+			<p>原始的msg：{{msg}}</p>
+			<p>将字符串的msg拆分为数组：{{msg.split("")}}</p>
+			<p>将字符串的msg拆分为数组然后倒序排列：{{msg.split("").reverse()}}</p>
+			<h2>将倒序排列后的数组再拼接为字符串：{{msg.split("").reverse().join("")}}</h2>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					msg:"hello vue"
+				}
+			})
+		</script>
+	</body>
+</html>

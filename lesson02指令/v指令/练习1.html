@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<div>
+				<fieldset>
+					<legend>用户注册</legend>
+					<p>用户名：<input type="text" v-model="userName" /></p>
+					<p>密码框：<input type="password" v-model="passWord" /></p>
+					<p>性别：<input type="radio"  name="1" value="男" v-model="sex" checked="checked"/>男
+						    <input type="radio" name="1" value="女" v-model="sex" />女
+					</p>
+					<p>爱好（多选按钮）：<input type="checkbox" name="vehicle" checked="checked" value="eat" v-model="hobby" />吃
+						               <input type="checkbox" name="vehicle" checked="checked" value="play" v-model="hobby" />玩
+						               <input type="checkbox" name="vehicle" value="sleep" v-model="hobby" />睡觉
+						               <input type="checkbox" name="vehicle" value="sing" v-model="hobby" />唱歌
+					</p>
+					<p>
+						<button type="submit">提交</button>
+						<button type="reset">重置</button>
+					</p>
+				</fieldset>
+			</div>
+			<div class="">
+				<h1>填写表单内容如下：</h1>
+				<p>用户名：{{userName}}</p>
+				<p>密码：{{passWord}}</p>
+				<p>性别：{{sex}}</p>
+				<p>爱好（多选）：{{hobby}}</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el: "#box",
+				data: {
+					userName: "user",
+					passWord: "",
+					sex: "男",
+					hobby: ["eat","play"]
+				}
+			})
+		</script>
+	</body>
+</html>

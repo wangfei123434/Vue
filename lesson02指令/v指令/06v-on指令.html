@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<h1>我是点击事件，点击完之后会替换掉p里面的内容</h1>
+			<p>{{msg}}</p>
+			<button v-on:click="myChange">click</button>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					msg:"点完之后我的内容会发生变化"
+				},
+				methods:{
+					myChange:function(){
+						this.msg = "你已经点击了"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

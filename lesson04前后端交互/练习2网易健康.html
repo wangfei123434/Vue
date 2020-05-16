@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<div class="">
+				网易健康
+			</div>
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					liArr:[]
+				},
+				mounted:function(){
+					axios.get("http://route.showapi.com/90-87?showapi_appid=45300&showapi_sign=c28de9d6f79e44369a9abcd40fa3e277")
+		            .then(res => {
+						console.log(res.data)
+					})	
+				    .catch(err => {
+						console.log(err)
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

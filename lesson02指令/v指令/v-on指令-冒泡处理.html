@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.parDiv{
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<!-- 
+		 问题：事件的冒泡，点击小盒子的时候，由于小盒子被大盒子包裹着，因此同时会触发大盒子的事件
+		 解决办法：（v-on修饰符）
+		                .stop：相当于调用原生的event.stopPropagation()来阻止事件的冒泡
+						.prevent：相当于调用event.preventDefault()来阻止事件的默认行为
+						.self：事件只从自身触发时候才会被调用
+		 -->
+		<div id="box">
+			<!-- 解决方法二：利用.self来限制只自身触发，不能被冒泡触发 -->
+			<div class="parDiv" v-on:click.self="parDivFn()" >
+				大div
+				<div class="childDiv" @click="childDivFn()">
+					小div
+				</div>
+				<!-- 解决方法一：利用.stop：相当于调用原生的event.stopPropagation()来阻止事件的冒泡-->
+				<!-- <div class="childDiv" @click.stop="childDivFn()">
+					小div
+				</div> -->
+			</div>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					
+				},
+				methods:{
+					parDivFn:function(){
+						console.log("我是大盒子")
+					},
+					childDivFn:function(){
+						console.log("我是小盒子")
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

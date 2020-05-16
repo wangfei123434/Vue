@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="vue.js"></script>
+	<body>
+		<div id="box">
+			<h1>获取msg的值:{{msg}}</h1>
+			<h2>数值：{{8888}}</h2>
+			<h2>字符串：{{"kobe"}}</h2>
+			<h2>运算：{{1+1}}</h2>
+			<h2>拼接：{{msg + ",kobe"}}</h2>
+			<h2>简单的三元操作：{{1==1?"true":"false"}}</h2>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					msg:"hello"
+				}
+			})
+		</script>
+	</body>
+</html>

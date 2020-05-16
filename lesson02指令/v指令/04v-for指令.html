@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="key in lis">{{key.name}}</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					lis:[
+						{name:"vue"},
+						{name:"angular"},
+						{name:"react"}
+					]
+				}
+			})
+		</script>
+	</body>
+</html>

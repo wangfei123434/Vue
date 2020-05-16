@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript">
+			let showBtn = true
+			if(showBtn){
+				let btn = $("<button>click me</button>")
+				btn.on("click",function(){
+					console.log("你点击了")
+				})
+				$("#box").append(btn)
+			}
+		</script>
+	</body>
+</html>

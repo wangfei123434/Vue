@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<h1>{{ time | formatDate }}</h1>
+		</div>
+		<script type="text/javascript">
+			function sany(time){
+				// let str = time<10?"0"+time:time
+				let str = time.toString().padStart(2,"0") //ES6方法
+				return str
+			}
+			let app = new Vue({
+				el:"#app",
+				data:{
+					time:new Date(),
+					timer:null
+				},
+				//挂载之后
+				mounted:function(){
+					this.timer = setInterval(() => {
+						this.time = new Date()
+					},1000)
+				},
+				//销毁之前清除定时器
+				beforeDestroy:function(){
+					clearInterval(this.timer)
+				},
+				//过滤格式化
+				filters:{
+					formatDate:function(val){
+						let myDate = new Date(val)
+						let my_Ye = myDate.getFullYear()
+						let my_M0 = myDate.getMonth() + 1
+						let my_Da = sany(myDate.getDate())
+						let my_Ho = sany(myDate.getHours())
+						let my_Mi = sany(myDate.getMinutes())
+						let my_S = sany(myDate.getSeconds())
+						return my_Ye + "年" + my_M0 + "月" + my_Da + "日" + my_Ho + ":" + my_Mi + ":" + my_S
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" ></script>
+	<script src="js/axios.js" ></script>
+	<body>
+		<div id="app">
+			<p><button @click="searchTxt">请求本地的text内容</button></p>
+			<p><button @click="searchGet">get方式请求服务器数据</button></p>
+			<p><button @click="searchPost">post方式请求服务器数据</button></p>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					getUrl:"http://localhost:8888/get",
+					postUrl:"http://localhost:8888/post"
+				},
+				methods:{
+					//请求本地数据的方法
+					searchTxt(){
+						//axiso   异步请求本地内容
+						axios.get("01demo.txt",{
+							params:{
+								id:1
+							},
+							headers:{
+								token:"hello"
+							}
+						})
+						.then(res => {
+							console.log("请求本地",res)
+							console.log("请求本地",res.data)
+						})
+						.catch(err => {
+							console.log(err)
+						})
+					},
+					//get请求服务器的方法
+					searchGet(){
+						axios.get(this.getUrl,{
+							params:{
+								a:20,
+								b:10
+							}
+						})
+						.then(res => {
+							console.log("get请求服务器",res)
+							console.log("get请求服务器",res.data)
+						})
+						.catch(err => {
+							console.log(err)
+						})
+					},
+					//post请求服务器的方法
+					searchPost(){
+						let params = new URLSearchParams()
+						params.append("a",20)
+						params.append("b",10)
+						axios.post(this.postUrl,params)
+						.then(res => {
+							console.log("post请求服务器",res)
+							console.log("post请求服务器",res.data)
+						})
+						.catch(err => {
+							console.log(err)
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.content{
+				border-bottom: 1px solid #ccc;
+				width: 600px;
+				height: 60px;
+				line-height: 60px;
+				text-align: center;
+			}
+			.content span{
+				float: right;
+			}
+			.content img{
+				width: 40px;
+				height: 40px;
+				vertical-align: middle;
+			}
+			.content:last-child .icon1{
+				visibility: hidden;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<app1 ctitle="书影音" src1="img/ic_actionbar_search_icon.png" src2="img/ic_create_group_chat_blue.png"></app1>
+		    <app1 ctitle="广播" src1="img/ic_status_search_user.png" src2="img/ic_create_group_chat_blue.png"></app1>
+            <app1 ctitle="小组" src1="img/ic_actionbar_search_icon.png" src2="img/ic_create_group_chat_blue.png"></app1>
+		    <app1 ctitle="我的" src2="img/ic_settings.png"></app1>
+		</div>
+		<template id="mtT">
+			<div class="content">
+				{{ ctitle }}
+				<span>
+					<img :src="src1" class="icon1">
+					<img :src="src2" class="icon2">
+				</span>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+				},
+				components:{
+					"app1":{
+						template:"#mtT",
+						props:["ctitle","src1","src2"]
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

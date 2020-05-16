@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<parent></parent>
+		</div>
+		<!-- 父 -->
+		<template id="parentT">
+			<div>
+				<h1>我是父组件</h1>
+				<!-- 步骤三：调用时传递数据给子组件 -->
+				<!-- 子传父步骤三：接收自定义事件的监听 @event="不带括号的函数名称"-->
+				<child :childMsg="parentMsg" @change="getChildValue"></child>
+				<!-- 子传父步骤四：显示子组件传递过来的数据 -->
+				<h4>
+					接收到子组件传过来的内容是：{{ showChildDate }}
+				</h4>
+			</div>
+		</template>
+		<!-- 子 -->
+		<template id="childT">
+			<div>
+				<h1>我是子组件</h1>
+				<h3>
+					<!-- 步骤二：显示出接收到父组件的值 -->
+					接收到父组件传过来的内容是：{{ childmsg }}
+				</h3>
+				<!-- 子传父步骤一：主动抛出事件 -->
+				<button @click="fn">点击我传递数据给父组件</button>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{},
+				components:{
+					"parent":{
+						template:"#parentT",
+						data:function(){
+							return {
+								parentMsg:"我是父组件data数据",
+								showChildDate:""
+							}
+						},
+						methods:{
+							getChildValue(val){
+								console.log(val)
+								this.showChildDate = val
+							}
+						},
+						components:{
+							"child":{
+								template:"#childT",
+								//步骤一：子组件定义props进行接收
+								props:["childmsg"],
+								data:function(){
+									return {
+										childMsg:"我是子组件data数据"
+									}
+								},
+								methods:{
+									fn(){
+										//子传父步骤二：通过$emit()抛出自动以事件的监听
+									    //this.$emit("自定义事件名称"，传递 参数)
+									    this.$emit("change",this.childMsg)
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			})
+		</script>
+	</body>
+</html>

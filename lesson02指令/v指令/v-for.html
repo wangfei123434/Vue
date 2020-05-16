@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<!-- 
+		   v-for 循环遍历
+		   语法：v-for = "(item,index) in arr"
+		   item表示循环的每一项    index表示每一项的索引
+		-->
+		<div id="box">
+			<!-- 1、v-for 遍历对象 -->
+			<ul>
+				<li v-for="(value,key,index) in hoopster">
+					{{value}}---{{key}}---{{index}}
+				</li>
+			</ul>
+			<!-- 2、v-for 遍历数组 -->
+			<ul>
+				<li v-for="(item,index) in hoopsterArr">
+					{{item}}---{{index}}
+				</li>
+			</ul>
+			<!-- 3、v-for 遍历对象数组 -->
+			<ul>
+				<li v-for="(item,index) in hoopsterList">
+					{{item.name}}---{{item.age}}---{{item.hobbies}}
+					<span v-for="(item1,index1) in item.hobbies">
+						{{item1}}
+					</span>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					hoopster:{
+						name:"kobe",
+						age:88,
+						address:"LA"
+					},
+					hoopsterArr:["kobe","jordan","james"],
+					hoopsterList:[
+						{
+							name:"kobe1",
+							age:88,
+							hobbies:["sing","dance","running"]
+						},
+						{
+							name:"jordan",
+							age:66,
+							hobbies:["sing","dance","running"]
+						},
+						{
+							name:"james",
+							age:77,
+							hobbies:["sing","dance","running"]
+						}
+					]
+				}
+			})
+		</script>
+	</body>
+</html>

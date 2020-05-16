@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(item,inde) in arr">
+					{{ item.name }} : {{ item.price | fn1(50) | fn2 }}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					arr:[
+						{name:"洗衣机",price:3000},
+						{name:"电视机",price:4000},
+						{name:"电冰箱",price:5000}
+					]
+				},
+				filters:{
+					fn1:function(value,disc){
+						return value*disc/100
+					},
+					fn2:function(value){
+						return "￥"+value
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 500px;
+				margin: 50px auto;
+			}
+			li{
+				list-style: none;
+			}
+			h4 a{
+				text-decoration: none;
+			}
+			.active{
+				color: #ccc;
+				text-decoration: line-through;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="box">
+			<h1>任务列表</h1>
+			<h4>任务总数：{{todoList.length}}；还有：{{subtractFn()}}个未完成；<a href="#" @click="successFn()">【完成】</a></h4>
+			<ul>
+				<li v-for="(item,index) in todoList" v-bind:class="{active:item.isFinish}">
+					<input type="checkbox" v-model="item.isFinish" />
+					<input type="text" v-show="item.isEdit" v-model="item.title" @blur="item.isEdit=false" />
+					<span v-show="!item.isEdit" @click="editFn(index)">{{item.title}}</span>
+				</li>
+			</ul>
+			<p>
+				<input type="text" name="" v-model="todoName"/>
+				<button type="button" @click="addFn()">添加待办事项</button>
+			</p>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					todoList:[
+						{title:"编写页面代码",isFinish:true,isEdit:false},
+						{title:"编写JS代码",isFinish:false,isEdit:false},
+						{title:"产品设计原型",isFinish:false,isEdit:false}
+					],
+					todoName:""
+				},
+				methods:{
+					//计算剩下的待办数量
+					subtractFn(){
+						let number = 0
+						this.todoList.forEach(item=>{
+							if(!item.isFinish){
+								number ++
+							}
+						})
+						return number
+					},
+					// 点击完成
+					successFn(){
+						let arr = this.todoList
+						//先清空所有数据
+						this.todoList = []
+						//然后再循环判断还没有完成的待办再添加进数组
+						for(let i = 0;i < arr.length;i ++){
+							if(!arr[i].isFinish){
+								this.todoList.push(arr[i])
+							}
+						}
+					},
+					//点击添加待办
+					addFn(){
+						this.todoList.push({title:this.todoName,isFinish:false,isEdit:false})
+						this.todoName = ""
+					},
+					editFn(index){
+						if(this.todoList[index].isEdit){
+							return
+						}
+						this.todoList[index].isEdit = true
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

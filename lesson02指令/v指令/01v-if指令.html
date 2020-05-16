@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js"></script>
+	<body>
+		<!-- 
+		 vue指令：待有v-前缀的特殊属性
+		 例如：v-if  v-else   v-for  v-bind  v-on  v-model....
+		 
+		 一个标签内可以有多个指令，使用空格隔开即可
+		 
+		 v-if="表达式"
+		 如果成立true显示元素，反之false隐藏元素，页面中没有标签存在
+		 -->
+		<div id="box">
+			<h1 v-if="flag">如果条件为true的话我就显示，为false的话就不显示，不仅不显示，而且还不会生成标签</h1>
+		</div>
+		<script type="text/javascript">
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					flag:true   // 如果为false的话页面就不显示并且不生成标签
+				}
+			})
+		</script>
+	</body>
+</html>

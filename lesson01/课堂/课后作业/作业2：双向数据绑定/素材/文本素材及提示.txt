@@ -1,0 +1,6 @@
+文本素材：您好：
+
+提示：
+双向数据绑定：
+1、要有输入框 并且要使用 v-model="要绑定的属性名" 指令
+<input type="text" v-model="name" placeholder="你的名字">

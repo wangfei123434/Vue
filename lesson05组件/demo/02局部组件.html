@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<!-- 
+		组件component：自定义标签
+		目的：封装可重用的标签代码
+		分类：全局组件：在所有作用域（所有实例）有效
+		     局部组件：只在当前所定义的作用域内有效
+		-->
+		<div id="app1">
+			<demo></demo>
+			<demo></demo>
+			<demo-T2></demo-T2>
+			app1:{{ msg }}
+		</div>
+		<div id="app2">
+			<!-- 此处访问不到demo的内容 -->
+			<!-- <demo></demo> -->
+		</div>
+		<!-- 2、自定义模板 -->
+		<template id="mytemplabe">
+			<div>
+				<h1 @click="fn1">这里是局部组件</h1>
+				<p>这里是一个段落标签 {{ msg }}</p>
+			</div>
+		</template>
+		<script type="text/javascript">
+			let app1 = new Vue({
+				el:"#app1",
+				data:{
+					msg:"msg1"
+				},
+				components:{
+					//组件名称
+					"demo":{
+						template:'#mytemplabe',
+						data:function(){
+							return {
+								msg:"我是组件msg"
+							}
+						},
+						methods:{
+							fn1(){
+								console.log(1)
+							}
+						}
+					},
+					"demoT2":{
+						template:"<div>我是一个div</div>"
+					}
+				}
+			})
+			
+			let app2 = new Vue({
+				el:"#app2"
+			})
+		</script>
+	</body>
+</html>

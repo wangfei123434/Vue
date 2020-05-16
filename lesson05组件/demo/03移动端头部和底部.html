@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.searchBox {
+				width: 100%;
+				height: 50px;
+				background-color: #94eb8c;
+				position: relative;
+			}
+
+			.searchBox input {
+				position: absolute;
+				width: 80%;
+				height: 35px;
+				left: 18px;
+				top: 50%;
+				transform: translateY(-50%);
+				border: none;
+				border-radius: 5px;
+				text-indent: 3em;
+			}
+
+			.searchBox img {
+				position: absolute;
+				height: 25px;
+				width: 25px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+			.searchBox .search {
+				left: 25px;
+			}
+
+			.searchBox .scan {
+				right: 70px;
+			}
+
+			.searchBox .chat {
+				right: 20px;
+			}
+
+			.tabbarBox {
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				display: flex;
+				border-top: 1px solid #ccc;
+			}
+
+			.tabbarBox .item {
+				flex: 1;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<topsearch></topsearch>
+			<tabbar></tabbar>
+		</div>
+		<!-- 头部search -->
+		<template id="mytemplabe">
+			<div class="searchBox">
+				<input type="text" :placeholder="msg" />
+				<img src="img/ic_search_gray.png" class="search" @click="searchFn">
+				<img src="img/ic_scan_gray.png" class="scan">
+				<img src="img/ic_chat_white.png" class="chat">
+			</div>
+		</template>
+		<!-- 底部tabbar -->
+		<template id="mytabbar">
+			<div class="tabbarBox">
+				<div class="item">
+					<img src="img/1.png">
+					<br>
+					首页
+				</div>
+				<div class="item">
+					<img src="img/2.png">
+					<br>
+					首页
+				</div>
+				<div class="item">
+					<img src="img/3.png">
+					<br>
+					首页
+				</div>
+				<div class="item">
+					<img src="img/4.png">
+					<br>
+					首页
+				</div>
+			</div>
+		</template>
+
+		<script type="text/javascript">
+			let app = new Vue({
+				el: "#app",
+				//组件
+				components: {
+					//头部组件
+					"topsearch": {
+						template: "#mytemplabe",
+						data: function() {
+							return {
+								msg: "请输入要搜索的内容"
+							}
+						},
+						methods: {
+							searchFn() {
+								this.msg = "这里是自定义的内容"
+							}
+						}
+					},
+					"tabbar": {
+						template: "#mytabbar"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

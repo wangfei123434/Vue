@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js"></script>
+	<!-- <script src="js/axios.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="app">
+			<input type="text" v-model="msg" @keydown.enter="getDateFn"/>
+			<ul>
+				<li v-for="(item,index) in liArr">
+					{{ item }}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					msg:"",
+					liArr:[],
+					url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=iphone"
+				},
+				methods:{
+					getDateFn:function(){
+						this.$http.jsonp(this.url,{
+							params:{
+								wd:this.msg
+							},
+							jsonp:"cb"
+						})
+						.then(res => {
+							console.log(res.data)
+							this.liArr = res.data.s
+						})
+						.catch(err => {
+							console.log(err)
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
